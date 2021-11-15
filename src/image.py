@@ -118,7 +118,7 @@ class Image:
             for c in range (im.W):
                 if self.pixels[l][c] == im.pixels[l][c]:
                     compte += 1
-        similitude = (compte/((self.H)*(self.W)))
+        similitude = compte/((self.H)*(self.W))
         
         return similitude
 
