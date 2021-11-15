@@ -47,7 +47,28 @@ class Image:
     #   on retourne une nouvelle image binarisee
     #==============================================================================
     def binarisation(self, S):
-        pass
+            # creation d'une image vide
+            
+        im_bin = Image()
+        
+        # affectation a l'image im_bin d'un tableau de pixels de meme taille
+        # que self dont les intensites, de type uint8 (8bits non signes),
+        # sont mises a 0
+        
+        im_bin.set_pixels(np.zeros((self.H, self.W), dtype=np.uint8))
+        
+        for l in range(0, self.H):
+            for c in range(0,self.W):
+                if self.pixels[l][c] >= S:
+                    im_bin.pixels[l][c] = 255
+                else : 
+                    im_bin.pixels[l][c] = 0
+        
+        # TODO: boucle imbriquees pour parcourir tous les pixels de l'image im_bin
+        # et calculer l'image binaire
+        
+        
+        return im_bin 
 
 
     #==============================================================================
@@ -59,8 +80,25 @@ class Image:
     #   on retourne une nouvelle image recadree
     #==============================================================================
     def localisation(self):
-        pass
-
+        im_local = Image()
+        l_max = 0
+        c_max = 0
+        l_min = self.H
+        c_min = self.W
+        for l in range (0, self.H):
+            for c in range(0,self.W):
+                if self.pixels[l][c] == 0:
+                    if l < l_min :
+                        l_min = l
+                    if l > l_max :
+                        l_max = l
+                    if c < c_min :
+                        c_min = c
+                    if c > c_max : 
+                        c_max = c
+        print(f'l_min={l_min}, l_max={l_max}, c_min={c_min}, c_max={c_max}')
+        im_local.set_pixels(self.pixels[l_min : l_max,c_min : c_max])
+        return im_local
     #==============================================================================
     # Methode de redimensionnement d'image
     #==============================================================================
